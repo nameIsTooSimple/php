@@ -1,0 +1,32 @@
+    /*
+    * author young
+    * input String string 需要替换字符串, String oldString 替换的字符串,String newString 替换成字符串,int i第几个
+    * output String
+    * */
+    public static String replaceNum(String str, String oldString, String newString, int i) {
+        String newStr = "";
+        int index = 0,matchLength = oldString.length(),startIndex = 0;
+        //匹配第一个直接替换
+        if (i == 1) {
+            newStr = str.replaceFirst(oldString, newString);
+        }else{
+            for (int len = i,j = 0;j < len;j++){
+                //匹配当前 index为当前字符串索引位置
+                //匹配第i个string 找到第i-1个位置
+                if (j == 0) {
+                    index = str.indexOf(oldString);
+//                    startIndex = index + matchLength-1;
+                }else {
+                    index = str.indexOf(oldString,startIndex);
+                }
+                startIndex = index + matchLength -1;
+            }
+            //index右边的字符
+            String rightStr = str.substring(index,str.length());
+            rightStr = rightStr.replaceFirst(oldString,newString);
+            //左边
+            String leftString = str.substring(0,index);
+            newStr = leftString + rightStr;
+        }
+        return newStr;
+    }
